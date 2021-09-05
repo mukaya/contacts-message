@@ -17,33 +17,27 @@ class ContactsRepository {
   };
 
   Future<List<Contact>> allContacts() async {
-    try {
-      await Future.delayed(Duration(seconds: 1));
-      int rnd = Random().nextInt(10);
-      if (rnd < 3) {
-        var allContacts;
-        allContacts = contacts.values.toList();
-        return allContacts;
-      }
-    } catch (e) {
-      print("Error on ContactsRepository.allContacts() $e");
+    await Future.delayed(Duration(seconds: 1));
+    int rnd = Random().nextInt(10);
+    if (rnd > 3) {
+      var allContacts;
+      allContacts = contacts.values.toList();
+      return allContacts;
+    } else {
+      throw Exception("Error on ContactsRepository.allContacts()");
     }
-    return [];
   }
 
   Future<List<Contact>> contactsByType({String? type}) async {
-    try {
-      await Future.delayed(Duration(seconds: 1));
-      int random = Random().nextInt(10);
-      if (random < 3) {
-        var contactsByType;
-        contactsByType =
-            contacts.values.toList().where((element) => element.type == type);
-        return contactsByType;
-      }
-    } catch (e) {
-      print("Error on ContactsRepository.contactsByType() $e");
+    await Future.delayed(Duration(seconds: 1));
+    int random = Random().nextInt(10);
+    if (random > 3) {
+      var contactsByType;
+      contactsByType =
+          contacts.values.toList().where((element) => element.type == type);
+      return contactsByType;
+    } else {
+      throw Exception("Error on ContactsRepository.contactsByType()");
     }
-    return [];
   }
 }

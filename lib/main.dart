@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bloc/contacts.bloc.dart';
+import 'package:flutter_application_1/repositories/contacts.repo.dart';
 import 'package:flutter_application_1/ui.pages/contacts/contacts.page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 main() {
   runApp(
@@ -12,14 +15,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ContactsBloc(
+            ContactsState(
+              contacts: [],
+              requestState: RequestState.NONE,
+              errorMessage: '',
+            ),
+            ContactsRepository(),
+          ),
+        ),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.deepOrange,
+        ),
+        routes: {
+          '/contacts': (context) => Contactspage(),
+        },
+        initialRoute: '/contacts',
       ),
-      routes: {
-        '/contacts': (context) => Contactspage(),
-      },
-      initialRoute: '/contacts',
     );
   }
 }
