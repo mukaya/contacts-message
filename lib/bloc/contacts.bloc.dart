@@ -1,32 +1,14 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_application_1/bloc/contacts.actions.dart';
+import 'package:flutter_application_1/bloc/contacts.state.dart';
+import 'package:flutter_application_1/bloc/enums/enums.dart';
 import 'package:flutter_application_1/model/contact.model.dart';
 import 'package:flutter_application_1/repositories/contacts.repo.dart';
 
-abstract class ContactsEvent {}
-
-class LoadAllContactsEvent extends ContactsEvent {}
-
-class LoadStudentsEvent extends ContactsEvent {}
-
-class LoadDevelopersEvent extends ContactsEvent {}
-
-enum RequestState { LOADING, LOADED, ERROR, NONE }
-
-class ContactsState {
-  List<Contact> contacts;
-  RequestState requestState;
-  String? errorMessage;
-
-  ContactsState({
-    required this.contacts,
-    required this.requestState,
-    this.errorMessage,
-  });
-}
-
 class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   ContactsRepository contactsRepository;
-  ContactsBloc(ContactsState initialState, this.contactsRepository)
+  ContactsBloc(
+      {required ContactsState initialState, required this.contactsRepository})
       : super(initialState);
 
   @override
@@ -35,19 +17,59 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       yield ContactsState(
         contacts: state.contacts,
         requestState: RequestState.LOADING,
+        currentEvent: event,
       );
       try {
         List<Contact> data = await contactsRepository.allContacts();
-        yield ContactsState(contacts: data, requestState: RequestState.LOADED);
+        yield ContactsState(
+          contacts: data,
+          requestState: RequestState.LOADED,
+          currentEvent: event,
+        );
       } catch (e) {
         yield ContactsState(
           contacts: state.contacts,
           requestState: RequestState.ERROR,
           errorMessage: e.toString(),
+          currentEvent: event,
         );
       }
     }
-    if (event is LoadDevelopersEvent) {}
-    if (event is LoadStudentsEvent) {}
+    if (event is LoadDevelopersEvent) {
+      try {
+        List<Contact> data =
+            await contactsRepository.contactsByType(type: "Developer");
+        yield ContactsState(
+          contacts: data,
+          requestState: RequestState.LOADED,
+          currentEvent: event,
+        );
+      } catch (e) {
+        yield ContactsState(
+          contacts: state.contacts,
+          requestState: RequestState.ERROR,
+          errorMessage: e.toString(),
+          currentEvent: event,
+        );
+      }
+    }
+    if (event is LoadStudentsEvent) {
+      try {
+        List<Contact> data =
+            await contactsRepository.contactsByType(type: "Student");
+        yield ContactsState(
+          contacts: data,
+          requestState: RequestState.LOADED,
+          currentEvent: event,
+        );
+      } catch (e) {
+        yield ContactsState(
+          contacts: state.contacts,
+          requestState: RequestState.ERROR,
+          errorMessage: e.toString(),
+          currentEvent: event,
+        );
+      }
+    }
   }
 }

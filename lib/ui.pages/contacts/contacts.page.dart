@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/contacts.bloc.dart';
+import 'package:flutter_application_1/bloc/contacts.state.dart';
+import 'package:flutter_application_1/bloc/enums/enums.dart';
+import 'package:flutter_application_1/ui.pages/contacts/widgets/contacts.bar.buttons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Contactspage extends StatelessWidget {
@@ -13,78 +16,60 @@ class Contactspage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<ContactsBloc>().add(
-                          LoadAllContactsEvent(),
-                        );
-                  },
-                  child: Text(
-                    "All contacts",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Students",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Developers",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          BlocBuilder<ContactsBloc, ContactsState>(
-            builder: (context, state) {
-              if (state.requestState == RequestState.LOADING) {
-                return CircularProgressIndicator();
-              } else if (state.requestState == RequestState.ERROR) {
-                return Column(
-                  children: [
-                    Text("${state.errorMessage}"),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text("Retry"),
-                    ),
-                  ],
-                );
-              } else if (state.requestState == RequestState.LOADED) {
-                return Expanded(
-                  child: ListView.builder(
+          ContactsBarButtons(),
+          Expanded(
+            child: BlocBuilder<ContactsBloc, ContactsState>(
+              builder: (context, state) {
+                if (state.requestState == RequestState.LOADING) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state.requestState == RequestState.ERROR) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("${state.errorMessage}"),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<ContactsBloc>().add(state.currentEvent);
+                        },
+                        child: Text("Retry..."),
+                      ),
+                    ],
+                  );
+                } else if (state.requestState == RequestState.LOADED) {
+                  return ListView.builder(
                     itemCount: state.contacts.length,
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("${state.contacts[index].name}"),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  child:
+                                      Text("${state.contacts[index].profile}"),
+                                ),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Text("${state.contacts[index].name}"),
+                              ],
+                            ),
+                            CircleAvatar(
+                              child: Text("${state.contacts[index].score}"),
+                            )
                           ],
                         ),
                       );
                     },
-                  ),
-                );
-              } else {
-                return Container();
-              }
-            },
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
           )
         ],
       ),
