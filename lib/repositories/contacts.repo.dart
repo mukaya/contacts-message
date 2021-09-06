@@ -25,7 +25,7 @@ class ContactsRepository {
       allContacts = contacts.values.toList();
       return allContacts;
     } else {
-      throw Exception("Error on ContactsRepository.allContacts()");
+      throw Exception("Internet  Error");
     }
   }
 
@@ -40,7 +40,7 @@ class ContactsRepository {
           .toList();
       return contactsByType;
     } else {
-      throw Exception("Error on ContactsRepository.contactsByType()");
+      throw Exception("Internet  Error");
     }
   }
 }

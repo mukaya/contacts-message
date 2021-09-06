@@ -8,7 +8,11 @@ class ContactsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
+      child: ListView.separated(
+        separatorBuilder: (context, index) => Divider(
+          height: 2,
+          color: Colors.deepOrange,
+        ),
         itemCount: contacts.length,
         itemBuilder: (context, index) {
           return ListTile(
