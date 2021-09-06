@@ -4,6 +4,7 @@ import 'package:flutter_application_1/bloc/contacts.state.dart';
 import 'package:flutter_application_1/bloc/enums/enums.dart';
 import 'package:flutter_application_1/repositories/contacts.repo.dart';
 import 'package:flutter_application_1/ui.pages/contacts/contacts.page.dart';
+import 'package:flutter_application_1/ui.pages/messages/messages.page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -34,11 +35,13 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.deepOrange,
         ),
         routes: {
           '/contacts': (context) => Contactspage(),
+          '/messages': (context) => MessagesPage(),
         },
         initialRoute: '/contacts',
       ),
