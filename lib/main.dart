@@ -5,8 +5,10 @@ import 'package:flutter_application_1/bloc/enums/enums.dart';
 import 'package:flutter_application_1/repositories/contacts.repo.dart';
 import 'package:flutter_application_1/ui.pages/contacts/contacts.page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
-main() {
+void main() {
+  GetIt.instance.registerLazySingleton(() => new ContactsRepository());
   runApp(
     MyApp(),
   );
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
               errorMessage: '',
               currentEvent: null,
             ),
-            contactsRepository: new ContactsRepository(),
+            contactsRepository: GetIt.instance<ContactsRepository>(),
           ),
         ),
       ],
