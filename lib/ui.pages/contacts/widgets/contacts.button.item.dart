@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/contacts.bloc.dart';
+import 'package:flutter_application_1/bloc/contacts.state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContactsButtonItem extends StatelessWidget {
@@ -14,16 +15,31 @@ class ContactsButtonItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        context.read<ContactsBloc>().add(contactsEvent);
+    return BlocBuilder<ContactsBloc, ContactsState>(
+      builder: (context, state) {
+        return Container(
+          padding: EdgeInsets.fromLTRB(1, 1, 1, 1),
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: state.currentEvent.runtimeType == contactsEvent.runtimeType
+                  ? 2
+                  : 0,
+              color: Colors.deepOrange,
+            ),
+          ),
+          child: ElevatedButton(
+            onPressed: () {
+              context.read<ContactsBloc>().add(contactsEvent);
+            },
+            child: Text(
+              buttonLabel,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        );
       },
-      child: Text(
-        buttonLabel,
-        style: TextStyle(
-          color: Colors.white,
-        ),
-      ),
     );
   }
 }
