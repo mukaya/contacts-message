@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/bloc/contacts.actions.dart';
+import 'package:flutter_application_1/bloc/contacts/contacts.actions.dart';
 import 'package:flutter_application_1/ui.pages/contacts/widgets/contacts.button.item.dart';
 
 class ContactsBarButtons extends StatelessWidget {

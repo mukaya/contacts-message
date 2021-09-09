@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_application_1/bloc/contacts.actions.dart';
-import 'package:flutter_application_1/bloc/contacts.state.dart';
+import 'package:flutter_application_1/bloc/contacts/contacts.actions.dart';
+import 'package:flutter_application_1/bloc/contacts/contacts.state.dart';
 import 'package:flutter_application_1/bloc/enums/enums.dart';
 import 'package:flutter_application_1/model/contact.model.dart';
 import 'package:flutter_application_1/repositories/contacts.repo.dart';
@@ -18,6 +18,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
         contacts: state.contacts,
         requestState: RequestState.LOADING,
         currentEvent: event,
+        errorMessage: '',
       );
       try {
         List<Contact> data = await contactsRepository.allContacts();
@@ -25,6 +26,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
           contacts: data,
           requestState: RequestState.LOADED,
           currentEvent: event,
+          errorMessage: '',
         );
       } catch (e) {
         yield ContactsState(
@@ -36,6 +38,12 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       }
     }
     if (event is LoadDevelopersEvent) {
+      yield ContactsState(
+        contacts: state.contacts,
+        requestState: RequestState.LOADING,
+        currentEvent: event,
+        errorMessage: '',
+      );
       try {
         List<Contact> data =
             await contactsRepository.contactsByType(type: "Developer");
@@ -43,6 +51,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
           contacts: data,
           requestState: RequestState.LOADED,
           currentEvent: event,
+          errorMessage: '',
         );
       } catch (e) {
         yield ContactsState(
@@ -54,6 +63,12 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       }
     }
     if (event is LoadStudentsEvent) {
+      yield ContactsState(
+        contacts: state.contacts,
+        requestState: RequestState.LOADING,
+        currentEvent: event,
+        errorMessage: '',
+      );
       try {
         List<Contact> data =
             await contactsRepository.contactsByType(type: "Student");
@@ -61,6 +76,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
           contacts: data,
           requestState: RequestState.LOADED,
           currentEvent: event,
+          errorMessage: '',
         );
       } catch (e) {
         yield ContactsState(

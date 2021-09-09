@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/bloc/contacts.bloc.dart';
-import 'package:flutter_application_1/bloc/contacts.state.dart';
+import 'package:flutter_application_1/bloc/contacts/contacts.bloc.dart';
+import 'package:flutter_application_1/bloc/contacts/contacts.state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContactsButtonItem extends StatelessWidget {
