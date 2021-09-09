@@ -1,15 +1,19 @@
 import 'package:flutter_application_1/model/contact.model.dart';
 import 'package:flutter_application_1/model/message.model.dart';
 
-abstract class MessageEvent<T> {
-  T payload;
-  MessageEvent(this.payload);
+abstract class MessagesEvent<T> {
+  T? payload;
+  MessagesEvent(this.payload);
 }
 
-class MessagesByContactEvent extends MessageEvent<Contact> {
+class MessagesByContactEvent extends MessagesEvent<Contact> {
   MessagesByContactEvent(Contact payload) : super(payload);
 }
 
-class AddNewMessageEvent extends MessageEvent<Message> {
-  AddNewMessageEvent(Message payload) : super(payload);
+class AddNewMessagesEvent extends MessagesEvent<Message> {
+  AddNewMessagesEvent(Message payload) : super(payload);
+}
+
+class NoMessagesEvent extends MessagesEvent {
+  NoMessagesEvent(payload) : super(payload);
 }

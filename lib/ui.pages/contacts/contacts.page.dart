@@ -4,6 +4,7 @@ import 'package:flutter_application_1/bloc/contacts/contacts.state.dart';
 import 'package:flutter_application_1/bloc/enums/enums.dart';
 import 'package:flutter_application_1/ui.pages/contacts/widgets/contacts.bar.buttons.dart';
 import 'package:flutter_application_1/ui.pages/contacts/widgets/contacts.list.dart';
+import 'package:flutter_application_1/ui.pages/shared/circular.progress.ind.widget.dart';
 import 'package:flutter_application_1/ui.pages/shared/error.retry.action.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,11 +23,7 @@ class Contactspage extends StatelessWidget {
           BlocBuilder<ContactsBloc, ContactsState>(
             builder: (context, state) {
               if (state.requestState == RequestState.LOADING) {
-                return Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
+                return MyCircularProgressIndWidget();
               } else if (state.requestState == RequestState.ERROR) {
                 return ErrorRetryMessage(
                   errorMessage: state.errorMessage.toString(),

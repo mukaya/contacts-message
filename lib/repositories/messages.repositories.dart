@@ -38,12 +38,27 @@ class MessagesRepository {
       content: 'La vie est belle',
       type: 'sent',
     ),
+    6: Message(
+      id: 6,
+      contactId: 3,
+      date: DateTime.now(),
+      content: 'La vie est belle',
+      type: 'sent',
+    ),
+    7: Message(
+      id: 8,
+      contactId: 3,
+      date: DateTime.now(),
+      content:
+          'La vie est belle La vie est belle La vie est belle La vie est belle La vie est belle La vie est belle La vie est belle',
+      type: 'receiver',
+    ),
   };
 
   Future<List<Message>> allMessages() async {
     await Future.delayed(Duration(seconds: 1));
     int rnd = Random().nextInt(10);
-    if (rnd > 2) {
+    if (rnd > 3) {
       return messages.values.toList();
     } else {
       throw Exception("Internet error");
@@ -53,7 +68,7 @@ class MessagesRepository {
   Future<List<Message>> allMessagesByContact({required int contactId}) async {
     Future.delayed(Duration(seconds: 1));
     var nb = Random().nextInt(10);
-    if (nb > 2) {
+    if (nb > 3) {
       var data;
       data = messages.values
           .toList()

@@ -5,7 +5,7 @@ import 'package:flutter_application_1/bloc/messages/messages.state.dart';
 import 'package:flutter_application_1/model/message.model.dart';
 import 'package:flutter_application_1/repositories/messages.repositories.dart';
 
-class MessagesBloc extends Bloc<MessageEvent, MessagesState> {
+class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
   MessagesRepository messagesRepository = MessagesRepository();
   MessagesBloc({
     required MessagesState initialState,
@@ -13,27 +13,22 @@ class MessagesBloc extends Bloc<MessageEvent, MessagesState> {
   }) : super(initialState);
 
   @override
-  Stream<MessagesState> mapEventToState(MessageEvent event) async* {
+  Stream<MessagesState> mapEventToState(MessagesEvent event) async* {
     if (event is MessagesByContactEvent) {
-      yield MessagesState(
-        messages: state.messages,
-        requestState: RequestState.LOADING,
-        currentMessageEvent: event,
-      );
-
       try {
         List<Message> data = await messagesRepository.allMessagesByContact(
-            contactId: event.payload.id);
+            contactId: event.payload!.id);
 
         yield MessagesState(
           messages: data,
-          requestState: RequestState.ERROR,
+          requestState: RequestState.LOADED,
           currentMessageEvent: event,
+          messageError: '',
         );
       } catch (e) {
         yield MessagesState(
             messages: state.messages,
-            requestState: RequestState.LOADED,
+            requestState: RequestState.ERROR,
             currentMessageEvent: event,
             messageError: e.toString());
       }
