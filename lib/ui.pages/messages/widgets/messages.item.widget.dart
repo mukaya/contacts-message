@@ -13,7 +13,7 @@ class MessagesItemWidget extends StatelessWidget {
             ? MainAxisAlignment.start
             : MainAxisAlignment.end,
         children: [
-          message.type == 'sent'
+          message.type == 'received'
               ? SizedBox(
                   width: 0,
                 )
@@ -23,7 +23,7 @@ class MessagesItemWidget extends StatelessWidget {
           Flexible(
             child: Container(
               padding: EdgeInsets.all(20),
-              color: message.type == 'sent'
+              color: message.type == 'received'
                   ? Color.fromARGB(20, 0, 255, 0)
                   : Color.fromARGB(20, 255, 255, 0),
               foregroundDecoration: BoxDecoration(
@@ -33,14 +33,14 @@ class MessagesItemWidget extends StatelessWidget {
                   '${message.content} (${message.date!.day}-${message.date!.month}-${message.date!.year})'),
             ),
           ),
-          message.type == 'sent'
+          message.type == 'received'
               ? SizedBox(
                   width: 20,
                 )
               : SizedBox(
                   width: 0,
                 ),
-          message.type == 'sent'
+          message.type == 'received'
               ? SizedBox(
                   width: 20,
                 )

@@ -40,6 +40,13 @@ class MessagesFormWidget extends StatelessWidget {
                 type: 'sent',
               );
               context.read<MessagesBloc>().add(AddNewMessagesEvent(message));
+
+              Message replay = Message(
+                contactId: contact.id,
+                content: 'replay to message',
+                type: 'received',
+              );
+              context.read<MessagesBloc>().add(AddNewMessagesEvent(replay));
             },
             icon: Icon(Icons.send),
           )
