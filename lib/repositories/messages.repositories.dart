@@ -56,9 +56,8 @@ class MessagesRepository {
       id: 8,
       contactId: 3,
       date: DateTime.now(),
-      content:
-          'La vie est belle La vie est belle La vie est belle La vie est belle La vie est belle La vie est belle La vie est belle',
-      type: 'receiver',
+      content: 'La vie est belle La vie est belle',
+      type: 'received',
       selected: false,
     ),
   };

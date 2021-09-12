@@ -72,7 +72,7 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
       List<Message> selected = [...state.messagesSelected];
       for (Message m in messages) {
         if (m.id == event.payload!.id) {
-          m.selected = m.selected;
+          m.selected = !m.selected;
         }
         if (m.selected == true) {
           selected.add(m);
