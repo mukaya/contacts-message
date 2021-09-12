@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter_application_1/model/message.model.dart';
 
 class MessagesRepository {
+  int messageCount = 0;
   Map<int, Message> messages = {
     1: Message(
       id: 1,
@@ -55,6 +56,10 @@ class MessagesRepository {
     ),
   };
 
+  MessagesRepository() {
+    this.messageCount = messages.length;
+  }
+
   Future<List<Message>> allMessages() async {
     await Future.delayed(Duration(seconds: 1));
     int rnd = Random().nextInt(10);
@@ -75,6 +80,20 @@ class MessagesRepository {
           .where((element) => element.contactId == contactId)
           .toList();
       return data;
+    } else {
+      throw Exception("Internet error");
+    }
+  }
+
+  Future<Message> addNewMessage({Message? message}) async {
+    await Future.delayed(Duration(seconds: 1));
+    var nb = Random().nextInt(10);
+    if (nb > 1) {
+      int i = 0;
+      message!.id = ++messageCount;
+      i = message.id!;
+      messages[i] = message;
+      return message;
     } else {
       throw Exception("Internet error");
     }

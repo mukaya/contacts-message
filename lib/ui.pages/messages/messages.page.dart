@@ -43,7 +43,9 @@ class MessagesPage extends StatelessWidget {
               return Container();
             }
           }),
-          MessagesFormWidget(),
+          MessagesFormWidget(
+            contact: contact,
+          ),
         ],
       ),
     );

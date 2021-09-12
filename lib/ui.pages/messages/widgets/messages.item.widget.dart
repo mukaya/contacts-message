@@ -30,7 +30,7 @@ class MessagesItemWidget extends StatelessWidget {
                 border: Border.all(color: Colors.deepOrange),
               ),
               child: Text(
-                  '${message.content} (${message.date.day}-${message.date.month}-${message.date.year})'),
+                  '${message.content} (${message.date!.day}-${message.date!.month}-${message.date!.year})'),
             ),
           ),
           message.type == 'sent'

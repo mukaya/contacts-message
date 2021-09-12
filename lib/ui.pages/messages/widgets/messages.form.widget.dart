@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bloc/messages/messages.actions.dart';
+import 'package:flutter_application_1/bloc/messages/messages.bloc.dart';
+import 'package:flutter_application_1/model/contact.model.dart';
+import 'package:flutter_application_1/model/message.model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MessagesFormWidget extends StatelessWidget {
-  const MessagesFormWidget({Key? key}) : super(key: key);
+  Contact contact;
+  MessagesFormWidget({Key? key, required this.contact}) : super(key: key);
+
+  TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +19,30 @@ class MessagesFormWidget extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: TextFormField(),
+            child: TextFormField(
+              controller: textEditingController,
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+              ),
+            ),
           ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.send))
+          IconButton(
+            onPressed: () {
+              Message message = Message(
+                contactId: contact.id,
+                content: textEditingController.text,
+                type: 'sent',
+              );
+              context.read<MessagesBloc>().add(AddNewMessagesEvent(message));
+            },
+            icon: Icon(Icons.send),
+          )
         ],
       ),
     );
