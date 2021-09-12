@@ -23,6 +23,11 @@ class MessagesPage extends StatelessWidget {
         actions: [
           BlocBuilder<MessagesBloc, MessagesState>(
             builder: (context, state) {
+              return CircleAvatar(child: Text("${state.messages.length}"));
+            },
+          ),
+          BlocBuilder<MessagesBloc, MessagesState>(
+            builder: (context, state) {
               if (state.messagesSelected.length > 0) {
                 return IconButton(
                   onPressed: () {

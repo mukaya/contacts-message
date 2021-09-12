@@ -24,6 +24,7 @@ class MessagesFormWidget extends StatelessWidget {
               maxLines: null,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
+                hintText: "Your message",
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20),
@@ -49,6 +50,7 @@ class MessagesFormWidget extends StatelessWidget {
                 selected: false,
               );
               context.read<MessagesBloc>().add(AddNewMessagesEvent(replay));
+              textEditingController.text = "";
             },
             icon: Icon(Icons.send),
           )
