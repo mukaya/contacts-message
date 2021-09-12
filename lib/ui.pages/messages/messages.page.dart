@@ -20,6 +20,22 @@ class MessagesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(contact.name),
+        actions: [
+          BlocBuilder<MessagesBloc, MessagesState>(
+            builder: (context, state) {
+              if (state.messagesSelected.length > 0) {
+                return IconButton(
+                  onPressed: () {
+                    context.read<MessagesBloc>().add(DeleteMessagesEvent());
+                  },
+                  icon: Icon(Icons.restore_from_trash),
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [

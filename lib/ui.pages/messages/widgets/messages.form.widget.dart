@@ -38,6 +38,7 @@ class MessagesFormWidget extends StatelessWidget {
                 contactId: contact.id,
                 content: textEditingController.text,
                 type: 'sent',
+                selected: false,
               );
               context.read<MessagesBloc>().add(AddNewMessagesEvent(message));
 
@@ -45,6 +46,7 @@ class MessagesFormWidget extends StatelessWidget {
                 contactId: contact.id,
                 content: 'replay to message',
                 type: 'received',
+                selected: false,
               );
               context.read<MessagesBloc>().add(AddNewMessagesEvent(replay));
             },

@@ -17,3 +17,15 @@ class AddNewMessagesEvent extends MessagesEvent<Message> {
 class NoMessagesEvent extends MessagesEvent {
   NoMessagesEvent(payload) : super(payload);
 }
+
+class MessagesSelectedEvent extends MessagesEvent<Message> {
+  MessagesSelectedEvent(payload) : super(payload);
+}
+
+// class DeleteMessagesEvent extends MessagesEvent<Object> {
+//   DeleteMessagesEvent(payload) : super(payload);
+// }
+
+class DeleteMessagesEvent extends MessagesEvent {
+  DeleteMessagesEvent() : super(null);
+}

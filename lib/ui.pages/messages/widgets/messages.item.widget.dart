@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bloc/messages/messages.actions.dart';
+import 'package:flutter_application_1/bloc/messages/messages.bloc.dart';
 import 'package:flutter_application_1/model/message.model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MessagesItemWidget extends StatelessWidget {
   Message message;
@@ -8,6 +11,11 @@ class MessagesItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      selected: message.selected,
+      selectedTileColor: Colors.black12,
+      onLongPress: () {
+        context.read<MessagesBloc>().add(MessagesSelectedEvent(message));
+      },
       title: Row(
         mainAxisAlignment: message.type == 'sent'
             ? MainAxisAlignment.start

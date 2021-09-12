@@ -4,6 +4,7 @@ class Message {
   DateTime? date;
   String content;
   String type;
+  bool selected = false;
 
   Message({
     this.id,
@@ -11,5 +12,6 @@ class Message {
     this.date,
     required this.content,
     required this.type,
+    required this.selected,
   });
 }

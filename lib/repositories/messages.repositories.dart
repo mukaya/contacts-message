@@ -10,6 +10,7 @@ class MessagesRepository {
       date: DateTime.now(),
       content: 'Je suis avec toi',
       type: 'sent',
+      selected: false,
     ),
     2: Message(
       id: 2,
@@ -17,6 +18,7 @@ class MessagesRepository {
       date: DateTime.now(),
       content: 'Bonjour les amis',
       type: 'sent',
+      selected: false,
     ),
     3: Message(
       id: 3,
@@ -24,6 +26,7 @@ class MessagesRepository {
       date: DateTime.now(),
       content: 'Hello word',
       type: 'sent',
+      selected: false,
     ),
     4: Message(
       id: 4,
@@ -31,6 +34,7 @@ class MessagesRepository {
       date: DateTime.now(),
       content: 'Je suis toujours avec toi',
       type: 'sent',
+      selected: false,
     ),
     5: Message(
       id: 5,
@@ -38,6 +42,7 @@ class MessagesRepository {
       date: DateTime.now(),
       content: 'La vie est belle',
       type: 'sent',
+      selected: false,
     ),
     6: Message(
       id: 6,
@@ -45,6 +50,7 @@ class MessagesRepository {
       date: DateTime.now(),
       content: 'La vie est belle',
       type: 'sent',
+      selected: false,
     ),
     7: Message(
       id: 8,
@@ -53,6 +59,7 @@ class MessagesRepository {
       content:
           'La vie est belle La vie est belle La vie est belle La vie est belle La vie est belle La vie est belle La vie est belle',
       type: 'receiver',
+      selected: false,
     ),
   };
 
@@ -94,6 +101,16 @@ class MessagesRepository {
       i = message.id!;
       messages[i] = message;
       return message;
+    } else {
+      throw Exception("Internet error");
+    }
+  }
+
+  Future<void> deleteMessages({required Message message}) async {
+    await Future.delayed(Duration(seconds: 1));
+    var nb = Random().nextInt(10);
+    if (nb > 0) {
+      messages.remove(message.id);
     } else {
       throw Exception("Internet error");
     }
