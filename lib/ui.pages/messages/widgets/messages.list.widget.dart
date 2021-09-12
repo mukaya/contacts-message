@@ -8,11 +8,13 @@ class MessagesListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) => MessagesItemWidget(
-        message: messages[index],
+    return Expanded(
+      child: ListView.builder(
+        itemBuilder: (context, index) => MessagesItemWidget(
+          message: messages[index],
+        ),
+        itemCount: messages.length,
       ),
-      itemCount: messages.length,
     );
   }
 }

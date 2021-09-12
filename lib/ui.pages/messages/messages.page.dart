@@ -26,28 +26,23 @@ class MessagesPage extends StatelessWidget {
           ContactInfoWidget(
             contact: contact,
           ),
-          Expanded(
-            child: BlocBuilder<MessagesBloc, MessagesState>(
-                builder: (context, state) {
-              if (state.requestState == RequestState.LOADING) {
-                return MyCircularProgressIndWidget();
-              } else if (state.requestState == RequestState.ERROR) {
-                return ErrorRetryMessage(
-                    errorMessage: state.messageError.toString(),
-                    onAction: () {
-                      context
-                          .read<MessagesBloc>()
-                          .add(state.currentMessageEvent);
-                    });
-              } else if (state.requestState == RequestState.LOADED) {
-                return MessagesListWidget(
-                  messages: state.messages,
-                );
-              } else {
-                return Container();
-              }
-            }),
-          ),
+          BlocBuilder<MessagesBloc, MessagesState>(builder: (context, state) {
+            if (state.requestState == RequestState.LOADING) {
+              return MyCircularProgressIndWidget();
+            } else if (state.requestState == RequestState.ERROR) {
+              return ErrorRetryMessage(
+                  errorMessage: state.messageError.toString(),
+                  onAction: () {
+                    context.read<MessagesBloc>().add(state.currentMessageEvent);
+                  });
+            } else if (state.requestState == RequestState.LOADED) {
+              return MessagesListWidget(
+                messages: state.messages,
+              );
+            } else {
+              return Container();
+            }
+          }),
           MessagesFormWidget(),
         ],
       ),
