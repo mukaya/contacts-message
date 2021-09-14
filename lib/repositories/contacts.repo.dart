@@ -43,7 +43,7 @@ class ContactsRepository {
   Future<List<Contact>> allContacts() async {
     await Future.delayed(Duration(seconds: 1));
     int rnd = new Random().nextInt(10);
-    if (rnd > 3) {
+    if (rnd > 1) {
       List<Contact> allContacts;
       allContacts = contacts.values.toList();
       return allContacts;
@@ -55,7 +55,7 @@ class ContactsRepository {
   Future<List<Contact>> contactsByType({required String type}) async {
     await Future.delayed(Duration(seconds: 1));
     int rnd = Random().nextInt(10);
-    if (rnd > 3) {
+    if (rnd > 1) {
       List<Contact> contactsByType;
       contactsByType = contacts.values
           .toList()

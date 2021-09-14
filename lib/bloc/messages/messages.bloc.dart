@@ -92,7 +92,8 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     if (event is DeleteMessagesEvent) {
       List<Message> messages = state.messages;
       List<Message> selected = [...state.messagesSelected];
-      for (Message m in messages) {
+
+      for (Message m in selected) {
         try {
           await messagesRepository.deleteMessages(message: m);
           messages.removeWhere((element) => element.id == m.id);

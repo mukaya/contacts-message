@@ -79,7 +79,7 @@ class MessagesRepository {
   Future<List<Message>> allMessagesByContact({required int contactId}) async {
     Future.delayed(Duration(seconds: 1));
     var nb = Random().nextInt(10);
-    if (nb > 3) {
+    if (nb > 1) {
       var data;
       data = messages.values
           .toList()
