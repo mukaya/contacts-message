@@ -2,14 +2,19 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_application_1/bloc/contacts/contacts.actions.dart';
 import 'package:flutter_application_1/bloc/contacts/contacts.state.dart';
 import 'package:flutter_application_1/bloc/enums/enums.dart';
+import 'package:flutter_application_1/bloc/messages/messages.actions.dart';
+import 'package:flutter_application_1/bloc/messages/messages.bloc.dart';
 import 'package:flutter_application_1/model/contact.model.dart';
 import 'package:flutter_application_1/repositories/contacts.repo.dart';
 
 class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   ContactsRepository contactsRepository;
-  ContactsBloc(
-      {required ContactsState initialState, required this.contactsRepository})
-      : super(initialState);
+  MessagesBloc messagesBloc;
+  ContactsBloc({
+    required ContactsState initialState,
+    required this.contactsRepository,
+    required this.messagesBloc,
+  }) : super(initialState);
 
   @override
   Stream<ContactsState> mapEventToState(ContactsEvent event) async* {
@@ -27,7 +32,10 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
           requestState: RequestState.LOADED,
           currentEvent: event,
           errorMessage: '',
+          currentContact: data[0],
         );
+
+        messagesBloc.add(MessagesByContactEvent(data[0]));
       } catch (e) {
         yield ContactsState(
           contacts: state.contacts,

@@ -6,8 +6,8 @@ import 'package:flutter_application_1/model/message.model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MessagesFormWidget extends StatelessWidget {
-  Contact contact;
-  MessagesFormWidget({Key? key, required this.contact}) : super(key: key);
+  Contact? contact;
+  MessagesFormWidget({Key? key, this.contact}) : super(key: key);
 
   TextEditingController textEditingController = TextEditingController();
 
@@ -36,7 +36,7 @@ class MessagesFormWidget extends StatelessWidget {
           IconButton(
             onPressed: () {
               Message message = Message(
-                contactId: contact.id,
+                contactId: contact!.id,
                 content: textEditingController.text,
                 type: 'sent',
                 selected: false,
@@ -44,7 +44,7 @@ class MessagesFormWidget extends StatelessWidget {
               context.read<MessagesBloc>().add(AddNewMessagesEvent(message));
 
               Message replay = Message(
-                contactId: contact.id,
+                contactId: contact!.id,
                 content: 'replay to message',
                 type: 'received',
                 selected: false,

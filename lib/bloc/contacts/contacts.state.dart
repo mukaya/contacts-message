@@ -7,17 +7,20 @@ class ContactsState {
   RequestState requestState;
   String errorMessage;
   ContactsEvent currentEvent;
+  Contact? currentContact;
 
   ContactsState({
     required this.contacts,
     required this.requestState,
     required this.errorMessage,
     required this.currentEvent,
+    this.currentContact,
   });
 
   ContactsState.initialState()
       : contacts = [],
         requestState = RequestState.NONE,
         errorMessage = '',
+        currentContact = null,
         currentEvent = NonContactEvent();
 }

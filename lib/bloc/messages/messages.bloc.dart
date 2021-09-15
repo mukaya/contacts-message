@@ -21,6 +21,7 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
         currentMessageEvent: event,
         messageError: '',
         messagesSelected: state.messagesSelected,
+        currentContact: event.payload,
       );
       try {
         List<Message> data = await messagesRepository.allMessagesByContact(
@@ -32,14 +33,17 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
           currentMessageEvent: event,
           messageError: '',
           messagesSelected: state.messagesSelected,
+          currentContact: event.payload,
         );
       } catch (e) {
         yield MessagesState(
-            messages: state.messages,
-            requestState: RequestState.ERROR,
-            currentMessageEvent: event,
-            messagesSelected: state.messagesSelected,
-            messageError: e.toString());
+          messages: state.messages,
+          requestState: RequestState.ERROR,
+          currentMessageEvent: event,
+          messagesSelected: state.messagesSelected,
+          messageError: e.toString(),
+          currentContact: event.payload,
+        );
       }
     }
 

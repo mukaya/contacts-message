@@ -8,7 +8,7 @@ class MessagesRepository {
       id: 1,
       contactId: 1,
       date: DateTime.now(),
-      content: 'Je suis avec toi',
+      content: 'Je suis avec toi pour la vie',
       type: 'sent',
       selected: false,
     ),
@@ -58,6 +58,14 @@ class MessagesRepository {
       date: DateTime.now(),
       content: 'La vie est belle La vie est belle',
       type: 'received',
+      selected: false,
+    ),
+    8: Message(
+      id: 1,
+      contactId: 1,
+      date: DateTime.now(),
+      content: 'Je suis avec lol',
+      type: 'sent',
       selected: false,
     ),
   };
